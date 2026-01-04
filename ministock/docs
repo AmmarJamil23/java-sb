@@ -1,0 +1,17 @@
+Component TradingEngine
+
+Purpose
+Receives market prices and decides whether to place trades using ML signals and rule based validation.
+
+Inputs
+Market price updates
+ML buy probability
+
+Outputs
+Trade execution decision
+
+Failure handling
+If ML service fails or returns low confidence, no trade is executed.
+
+Design reason
+ML is kept separate to avoid unpredictable behavior affecting trade execution.
