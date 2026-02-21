@@ -45,8 +45,14 @@ public class Main {
         User user1 = new User("Ammar", 22);
         User user2 = new User("Daniyal", 20);
 
-        System.out.println(user1.name);
-        System.out.println(user2.age);
+        System.out.println(user1.getAge());
+        System.out.println(user2.getName());
+
+        St user = new St("ali");
+        System.out.println(user.getName());
+
+        int res = Nst.sum(5505, 2304);
+        System.out.println(res);
         // System.out.println("Java is running");
 
         // int age = 21;
