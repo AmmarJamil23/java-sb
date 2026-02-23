@@ -7,7 +7,7 @@ public class HelloController {
 
     @GetMapping("/hello")
     public String hello() {
-        return "Hello customer, spring bot is workin";
+        return "Hello customer, spring boot is workin";
     }
 
     @GetMapping("/health")
