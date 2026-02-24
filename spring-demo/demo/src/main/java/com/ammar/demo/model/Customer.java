@@ -3,16 +3,20 @@ package com.ammar.demo.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
 @Entity
 @Table(name = "customers")
 public class Customer {
 
     @Id
     private Long id;
+
     private String name;
+
     private String email;
 
-    public Customer() {}
+    public Customer() {
+    }
 
     public Customer(Long id, String name, String email) {
         this.id = id;
@@ -28,7 +32,6 @@ public class Customer {
         this.id = id;
     }
 
-
     public String getName() {
         return name;
     }
@@ -37,7 +40,6 @@ public class Customer {
         this.name = name;
     }
 
-
     public String getEmail() {
         return email;
     }
@@ -45,5 +47,4 @@ public class Customer {
     public void setEmail(String email) {
         this.email = email;
     }
-    
 }
