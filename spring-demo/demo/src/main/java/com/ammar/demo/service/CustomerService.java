@@ -24,7 +24,7 @@ public class CustomerService {
     }
 
     public Customer getById(Long id) {
-        return repository.findById(id);
+        return repository.findById(id).orElse(null);
     }
 
     public Customer update(Customer customer) {
@@ -32,6 +32,6 @@ public class CustomerService {
     }
 
     public void delete(Long id) {
-        repository.delete(id);
+        repository.deleteById(id);
     }
 }
