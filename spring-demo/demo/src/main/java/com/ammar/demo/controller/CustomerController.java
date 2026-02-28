@@ -1,5 +1,11 @@
 package com.ammar.demo.controller;
 
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*
+;
+
+
 import com.ammar.demo.model.Customer;
 import com.ammar.demo.service.CustomerService;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +24,8 @@ public class CustomerController {
     }
 
     @PostMapping
-    public Customer create(@RequestBody Customer customer) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public Customer create(@Valid @RequestBody  Customer customer) {
         return service.create(customer);
     }
 
@@ -29,7 +36,13 @@ public class CustomerController {
     
     @GetMapping("/{id}")
     public Customer getById(@PathVariable Long id) {
-        return service.getById(id);
+        Customer customer = service.getById(id);
+
+        if (customer == null) {
+            throw new RuntimeException("Customer not found");
+        }
+
+        return customer;
     }
 
     @PutMapping  
