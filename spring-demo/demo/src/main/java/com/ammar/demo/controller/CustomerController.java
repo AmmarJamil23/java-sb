@@ -1,15 +1,11 @@
 package com.ammar.demo.controller;
 
+import com.ammar.demo.dto.CustomerRequest;
+import com.ammar.demo.dto.CustomerResponse;
+import com.ammar.demo.service.CustomerService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*
-;
-
-
-import com.ammar.demo.model.Customer;
-import com.ammar.demo.service.CustomerService;
 import org.springframework.web.bind.annotation.*;
-
 
 import java.util.List;
 
@@ -25,32 +21,24 @@ public class CustomerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Customer create(@Valid @RequestBody  Customer customer) {
-        return service.create(customer);
+    public CustomerResponse create(
+            @Valid @RequestBody CustomerRequest request) {
+
+        return service.create(request);
     }
 
-    @GetMapping 
-    public List<Customer> getAll() {
+    @GetMapping
+    public List<CustomerResponse> getAll() {
         return service.getAll();
     }
-    
+
     @GetMapping("/{id}")
-    public Customer getById(@PathVariable Long id) {
-        Customer customer = service.getById(id);
-
-        if (customer == null) {
-            throw new RuntimeException("Customer not found");
-        }
-
-        return customer;
-    }
-
-    @PutMapping  
-    public Customer update(@RequestBody Customer customer) {
-        return service.update(customer);
+    public CustomerResponse getById(@PathVariable Long id) {
+        return service.getById(id);
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
         service.delete(id);
     }

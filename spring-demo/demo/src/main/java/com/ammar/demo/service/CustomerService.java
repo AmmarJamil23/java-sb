@@ -1,10 +1,13 @@
 package com.ammar.demo.service;
 
+import com.ammar.demo.dto.CustomerRequest;
+import com.ammar.demo.dto.CustomerResponse;
 import com.ammar.demo.model.Customer;
 import com.ammar.demo.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerService {
@@ -15,20 +18,41 @@ public class CustomerService {
         this.repository = repository;
     }
 
-    public Customer create(Customer customer) {
-        return repository.save(customer);
+    public CustomerResponse create(CustomerRequest request) {
+
+        Customer customer = new Customer();
+
+        customer.setName(request.getName());
+        customer.setEmail(request.getEmail());
+
+        Customer saved = repository.save(customer);
+
+        return new CustomerResponse(
+                saved.getId(),
+                saved.getName(),
+                saved.getEmail());
     }
 
-    public List<Customer> getAll() {
-        return repository.findAll();
+    public List<CustomerResponse> getAll() {
+
+        return repository.findAll()
+                .stream()
+                .map(customer -> new CustomerResponse(
+                        customer.getId(),
+                        customer.getName(),
+                        customer.getEmail()))
+                .collect(Collectors.toList());
     }
 
-    public Customer getById(Long id) {
-        return repository.findById(id).orElse(null);
-    }
+    public CustomerResponse getById(Long id) {
 
-    public Customer update(Customer customer) {
-        return repository.save(customer);
+        Customer customer = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
+
+        return new CustomerResponse(
+                customer.getId(),
+                customer.getName(),
+                customer.getEmail());
     }
 
     public void delete(Long id) {
